@@ -1,0 +1,82 @@
+*
+{
+  margin: 0px;
+  padding: 0px;
+ }
+.row > div
+{
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+}
+.container
+{
+  width: 650px;
+  margin: 0 auto;
+  position: relative;
+}
+#world
+{
+    width: 480px;
+    background-color: black;
+    display: inline-block;
+}
+#score-board
+{
+    width: 150px;
+    display: inline-block;
+    vertical-align: top;
+}
+.row
+{
+  width: 500px;
+}
+.outside-border{
+
+}
+.wall-wrapper
+{
+    background-color: darkblue;
+    display: relative;
+}
+.wall
+{
+
+    width: 20px;
+    width: 20px;
+    background-image: url('../images/wall.png');
+
+}
+.coin{
+
+    background-image: url('../images/coin.gif');
+    background-size: cover;
+}
+.empty
+{
+  background: none;
+}
+.cherry
+{
+    background-image: url('../images/cherry.png');
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+}
+img#pacman{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 48px;
+    top: 48px;
+}
+#ghost{
+
+    width: 20px;
+    height: 20px;
+    background-image: url('../images/ghost.png');
+    background-size: cover;
+    position: absolute;
+    left: 222px;
+    top: 222px;
+}
