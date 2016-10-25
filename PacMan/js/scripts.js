@@ -2,14 +2,14 @@ $(document).ready(function(){
     var world = [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,0,1,2,2,2,1,2,2,2,1,2,2,2,2,2,2,2,2,1],
-        [1,2,2,2,1,2,2,2,1,2,1,1,1,1,1,2,2,1,1,1],
-        [1,1,1,2,1,1,1,2,2,2,1,2,2,2,2,2,2,2,2,1],
-        [1,2,2,2,2,1,1,1,2,1,1,2,2,2,1,1,1,1,1,1],
+        [1,2,2,2,1,2,2,2,1,2,1,1,1,1,1,2,0,1,1,1],
+        [1,1,1,2,1,1,1,2,2,2,1,2,2,2,2,2,0,2,2,1],
+        [1,2,0,0,2,1,1,1,2,1,1,2,2,2,1,1,1,1,1,1],
         [1,2,1,1,2,2,2,2,2,1,1,2,1,2,2,2,2,2,2,1],
-        [1,2,2,1,2,1,1,0,2,2,1,2,1,1,1,2,2,2,2,1],
-        [1,1,2,1,2,2,2,2,1,2,1,1,2,2,2,2,2,2,2,1],
-        [1,2,2,1,2,2,2,2,1,2,2,2,2,2,2,1,1,1,1,1],
-        [1,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,2,1,1],
+        [1,2,2,1,2,1,1,0,2,2,1,2,1,1,1,2,2,0,2,1],
+        [1,1,2,1,2,2,2,2,1,2,1,1,2,2,2,2,2,0,2,1],
+        [1,2,0,1,2,2,2,2,1,2,2,2,2,2,2,1,1,1,1,1],
+        [1,2,2,2,2,2,2,2,2,2,1,2,2,2,2,2,2,0,1,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     ];
     //console.log(world.length);
@@ -19,7 +19,7 @@ $(document).ready(function(){
     };
     var ghost = {
         x: 8,
-        y: 8,
+        y: 9,
     }
     var score = 0;
     var gameStart = 0;
@@ -61,48 +61,40 @@ $(document).ready(function(){
                 }
             }, 3000
         );
-        setInterval(
-            function(){
+    function moveGhost(){
                 var num = Math.floor(Math.random() * 4) + 1 ;
                 if(num === 1)
                 {
-                    while(world[ghost.y+1][ghost.x] !==1)
+                    if(world[ghost.y+1][ghost.x] !==1)
                     {
                         ghost.y++;
-                        displayGhost();
-                        displayWorld();
-
                     }
 
                 } else if (num === 2)
                 {
-                    while(world[ghost.y-1][ghost.x] !== 1)
+                    if(world[ghost.y-1][ghost.x] !== 1)
                     {
                         ghost.y--;
-                        displayGhost();
-                        displayWorld();
                     }
                 }
                 else if (num === 3)
                 {
-                    while(world[ghost.y][ghost.x+1] !== 1)
+                    if(world[ghost.y][ghost.x+1] !== 1)
                     {
                         ghost.x++;
-                        displayGhost();
-                        displayWorld();
                     }
                 }
                 else if (num === 4)
                 {
-                    while(world[ghost.y][ghost.x-1] !== 1)
+                    if(world[ghost.y][ghost.x-1] !== 1)
                     {
                         ghost.x--;
-                        displayGhost();
-                        displayWorld();
                     }
                 }
-            },2000
-        );
+                displayGhost();
+                setTimeout(moveGhost, 500);
+    };
+
     document.onkeydown = function(e){
         if(gameStart !== 2) {
             if(e.keyCode == 38)// up = 38
@@ -141,10 +133,10 @@ $(document).ready(function(){
             displayWorld();
             displayPacman();
             displayScore();
-            displayGhost();
 
         }
     };
+
     function displayScore(){
             if(world[pacman.y][pacman.x] === 2)
             {
@@ -155,7 +147,7 @@ $(document).ready(function(){
             {
                 world[pacman.y][pacman.x] = 0;
                 score += 40;
-            } else if (world[pacman.y][pacman.x] === world[ghost.y][ghost.x]) {
+            } else if (ghost.y === pacman.y && ghost.x === pacman.x) {
                 gameStart = 2;
                 alert('Game Over!');
                 $('#score-board').append("<h1>Game Over!!!</h1>");
@@ -175,8 +167,9 @@ $(document).ready(function(){
     }
     displayWorld();
     displayPacman();
-    displayScore();
     displayGhost();
+    displayScore();
+    moveGhost();
 
 
 
